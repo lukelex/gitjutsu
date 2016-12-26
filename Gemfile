@@ -15,6 +15,8 @@ gem "slim"
 gem "omniauth-github"
 gem "octokit"
 
+gem "closed_struct"
+
 group :development, :test do
   gem "byebug", platform: :mri
   gem "dotenv-rails"

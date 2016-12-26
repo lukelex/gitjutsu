@@ -48,6 +48,7 @@ GEM
       debug_inspector (>= 0.0.1)
     builder (3.2.2)
     byebug (9.0.5)
+    closed_struct (0.1.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
     debug_inspector (0.0.2)
@@ -199,6 +200,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   byebug
+  closed_struct
   dotenv-rails
   jquery-rails
   octokit

@@ -4,8 +4,6 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate
 
   def create
-    p "started authentication"
-    p params
     create_session
 
     if github_token
@@ -18,11 +16,6 @@ class SessionsController < ApplicationController
   end
 
   private
-
-  def verify_csrf_token?
-    p "----------"
-    false
-  end
 
   def create_session
     session[:user_token] = user.remember_token
@@ -45,15 +38,15 @@ class SessionsController < ApplicationController
   end
 
   def github_username
-    auth_params.dig("info", "nickname")
+    auth_params.dig "info", "nickname"
   end
 
   def github_email_address
-    auth_params.dig("info", "email")
+    auth_params.dig "info", "email"
   end
 
   def github_token
-    auth_params.dig("credentials", "token")
+    auth_params.dig "credentials", "token"
   end
 
   def auth_params
@@ -61,21 +54,17 @@ class SessionsController < ApplicationController
   end
 
   def update_token
-    user.update!(github_token: github_token)
+    user.update! github_token: github_token
   end
 
   def update_scopes
     if scopes_changed?
-      user.update!(github_token_scopes: Github::AuthOptions::SCOPES)
+      user.update! github_token_scopes: Github::AuthOptions::SCOPES
       user.repositories.clear
     end
   end
 
   def scopes_changed?
     user.github_token_scopes != Github::AuthOptions::SCOPES
-  end
-
-  def github
-    GithubApi.new(github_token)
   end
 end
