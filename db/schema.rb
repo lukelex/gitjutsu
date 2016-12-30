@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161230155215) do
+ActiveRecord::Schema.define(version: 20161230230004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20161230155215) do
     t.jsonb    "payload",       null: false
     t.datetime "created_at",    null: false
     t.datetime "finished_at"
+    t.string   "event"
     t.index ["payload"], name: "index_analyses_on_payload", using: :gin
     t.index ["repository_id"], name: "index_analyses_on_repository_id", using: :btree
   end

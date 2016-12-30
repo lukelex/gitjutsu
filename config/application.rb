@@ -15,5 +15,6 @@ module Gitdoer
     # -- all .rb files in that directory are automatically loaded.
 
     config.autoload_paths << "#{Rails.root}/models/github/"
+    config.autoload_paths << "#{Rails.root}/validators/"
   end
 end

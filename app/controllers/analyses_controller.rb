@@ -5,20 +5,26 @@ class AnalysesController < ApplicationController
   # TODO: validate that request comes from github
 
   def create
-    require 'pry'; binding.pry
+    repository.analyses.create \
+      event: event,
+      payload: event_params
 
-    repository.analyses
-      .create(payload: pull_request_params)
-      .start(live: true)
-    # AnalysisJob.create(id: anal.id)
-
-    render nothing: true, status: :created
+    head :created
   end
 
   private
 
-  def pull_request_params
-    params.require :pull_request
+  def event_params
+    case event
+    when "push"
+      params.except "sender", "pusher", "repository"
+    when "pull_request"
+      params.require :pull_request
+    end
+  end
+
+  def event
+    request.headers["X-GitHub-Event"]
   end
 
   def repository
