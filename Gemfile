@@ -18,11 +18,12 @@ gem "octokit"
 gem "closed_struct"
 
 group :development, :test do
-  gem "byebug", platform: :mri
   gem "dotenv-rails"
   gem "rspec"
   gem "better_errors"
   gem "binding_of_caller"
+  gem "pry"
+  gem "rb-readline"
 end
 
 group :development do
