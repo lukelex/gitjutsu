@@ -1,5 +1,6 @@
 class Repository < ApplicationRecord
   belongs_to :account
+  has_many :analyses
 
   validates :name, :account, presence: true
 
@@ -9,6 +10,8 @@ class Repository < ApplicationRecord
   def full_name
     "#{account.user.github_username}/#{name}"
   end
+
+  delegate :pull_request, to: :source
 
   private
 

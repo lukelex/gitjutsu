@@ -3,7 +3,7 @@ module Github
     def create(full_repo_name, callback_endpoint)
       api.create_hook \
         full_repo_name, "web",
-        { url: callback_endpoint },
+        { url: callback_endpoint, content_type: "json" },
         { events: ["pull_request"], active: true }
     rescue Octokit::UnprocessableEntity => error
       if error.message.include? "Hook already exists"

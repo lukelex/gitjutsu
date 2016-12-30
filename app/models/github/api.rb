@@ -95,7 +95,7 @@ module Github
     def create_status(repo:, sha:, state:, description:, target_url: nil)
       client.create_status \
         repo, sha, state,
-        context: "hound",
+        context: "GitDoer",
         description: description,
         target_url: target_url
     end

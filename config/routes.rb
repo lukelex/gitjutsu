@@ -6,4 +6,6 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: "sessions#create"
 
   resources :repositories
+
+  post "/analyses" => "analyses#create"
 end
