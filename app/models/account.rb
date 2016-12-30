@@ -1,6 +1,6 @@
 class Account < ApplicationRecord
-  has_one :user
+  belongs_to :user
   has_many :repositories
 
-  validate :user, presence: true
+  validates :user, presence: true
 end

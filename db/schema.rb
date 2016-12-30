@@ -18,6 +18,8 @@ ActiveRecord::Schema.define(version: 20160718195738) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id",    null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id", using: :btree
   end
 
   create_table "repositories", force: :cascade do |t|
@@ -36,5 +38,6 @@ ActiveRecord::Schema.define(version: 20160718195738) do
     t.string "remember_token",      null: false
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "repositories", "accounts"
 end
