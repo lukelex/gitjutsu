@@ -1,3 +1,5 @@
+require "octokit"
+
 class User < ApplicationRecord
   has_one :account
   has_many :repositories, through: :account
@@ -9,6 +11,10 @@ class User < ApplicationRecord
 
   def to_s
     github_username
+  end
+
+  def github_api
+    @_github_api ||= Octokit::Client.new(access_token: github_token, auto_paginate: true)
   end
 
   private
