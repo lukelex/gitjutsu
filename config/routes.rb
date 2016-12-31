@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  default_url_options host: "gitdoer.io"
 
   root to: "application#home"
 
@@ -7,5 +7,5 @@ Rails.application.routes.draw do
 
   resources :repositories
 
-  post "/analyses" => "analyses#create"
+  post "/analyses/:hook_id" => "analyses#create", as: "analyse"
 end

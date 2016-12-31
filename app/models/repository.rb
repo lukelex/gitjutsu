@@ -16,7 +16,7 @@ class Repository < ApplicationRecord
   private
 
   def create_hook
-    source.create_hook(repo_id: id).tap do |hook|
+    source.create_hook(hook_id: hook_id).tap do |hook|
       update! hook_id: hook.id
     end
   end
