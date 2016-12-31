@@ -5,7 +5,6 @@ gem "pg", "~> 0.18"
 gem "puma", "~> 3.0"
 gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
-gem "dotenv-rails"
 
 gem "jquery-rails"
 gem "turbolinks", "~> 5"
@@ -19,6 +18,7 @@ gem "octokit"
 gem "closed_struct"
 
 group :development, :test do
+  gem "dotenv-rails"
   gem "rspec"
   gem "better_errors"
   gem "binding_of_caller"
