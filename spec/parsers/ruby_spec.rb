@@ -1,5 +1,5 @@
 require "rspec"
-require_relative "../../app/parsers/ruby"
+require_relative "../../app/models/parsers/ruby"
 
 RSpec.describe Parsers::Ruby do
   describe "#extract" do
@@ -67,6 +67,37 @@ RSpec.describe Parsers::Ruby do
         expect(comments.first.line_number).to eql 1
         expect(comments.last.title).to eql "also look at this!"
         expect(comments.last.line_number).to eql 5
+      end
+    end
+
+    context "multiple multiline comments" do
+      it "followed by code" do
+        contents = <<~CODE
+          # TODO: multiline bitch!!
+          # Write a regex for this!
+          # I double dare you!!!
+          def bar
+          end
+
+          # TODO: mooore multiline bitch!!
+          # Write a more complex regex for this!
+          # I triple dare you!!!
+          def foo
+          end
+        CODE
+        comments = Parsers::Ruby.instance.extract(contents)
+
+        expect(comments.length).to eql 2
+        comments.first.tap do |c|
+          expect(c.title).to eql "multiline bitch!!"
+          expect(c.line_number).to eql 1
+          expect(c.body).to eql "# Write a regex for this!\n# I double dare you!!!"
+        end
+        comments.last.tap do |c|
+          expect(c.title).to eql "mooore multiline bitch!!"
+          expect(c.line_number).to eql 7
+          expect(c.body).to eql "# Write a more complex regex for this!\n# I triple dare you!!!"
+        end
       end
     end
   end

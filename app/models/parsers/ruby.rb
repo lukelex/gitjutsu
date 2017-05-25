@@ -5,10 +5,11 @@ module Parsers
   class Ruby
     include ::Singleton
 
-    COMMENT_REGEX = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
+    TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
+    BODY = /\#/
 
     def initialize
-      @engine = Engine.new(COMMENT_REGEX)
+      @engine = Engine.new(TITLE, BODY)
     end
 
     def extract(contents)

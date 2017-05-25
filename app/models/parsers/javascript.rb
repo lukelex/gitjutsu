@@ -5,10 +5,11 @@ module Parsers
   class Javascript
     include ::Singleton
 
-    COMMENT_REGEX = /\/\/\s*TODO\s*(:)?\s*(?<title>.+)/i
+    TITLE = /\/{2}\s*TODO\s*:?\s*(?<title>.+)/i
+    BODY = /\/{2}/
 
     def initialize
-      @engine = Engine.new(COMMENT_REGEX)
+      @engine = Engine.new(TITLE, BODY)
     end
 
     def extract(contents)
