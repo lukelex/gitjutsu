@@ -8,7 +8,7 @@ RSpec.describe Parsers::Javascript do
         contents = <<~CODE
           // TODO: fix this!
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 1
         expect(comments.first.title).to eql "fix this!"
@@ -24,7 +24,7 @@ RSpec.describe Parsers::Javascript do
           // TODO: fix naming!
           function() { }
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 1
         comments.first.tap do |cmt|
@@ -41,7 +41,7 @@ RSpec.describe Parsers::Javascript do
           // TODO: fix this!
           // TODO: also look at this!
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         expect(comments.first.title).to eql "fix this!"
@@ -58,7 +58,7 @@ RSpec.describe Parsers::Javascript do
           // TODO: also look at this!
           function() { }
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         expect(comments.first.title).to eql "fix naming!"
@@ -76,7 +76,7 @@ RSpec.describe Parsers::Javascript do
           // I double dare you!!!
           function() { }
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 1
         comments.first.tap do |c|
@@ -100,7 +100,7 @@ RSpec.describe Parsers::Javascript do
           // I triple dare you!!!
           function() { }
         CODE
-        comments = Parsers::Javascript.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         comments.first.tap do |c|
@@ -115,5 +115,9 @@ RSpec.describe Parsers::Javascript do
         end
       end
     end
+  end
+
+  def extract(contents)
+    Parsers::Javascript.instance.extract(contents)
   end
 end

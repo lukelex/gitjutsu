@@ -8,7 +8,7 @@ RSpec.describe Parsers::Ruby do
         contents = <<~CODE
           # TODO: fix this!
         CODE
-        comments = Parsers::Ruby.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 1
         expect(comments.first.title).to eql "fix this!"
@@ -24,7 +24,7 @@ RSpec.describe Parsers::Ruby do
           def bar
           end
         CODE
-        comments = Parsers::Ruby.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 1
         comments.first.tap do |cmt|
@@ -41,7 +41,7 @@ RSpec.describe Parsers::Ruby do
           # TODO: fix this!
           # TODO: also look at this!
         CODE
-        comments = Parsers::Ruby.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         expect(comments.first.title).to eql "fix this!"
@@ -60,7 +60,7 @@ RSpec.describe Parsers::Ruby do
           def bar
           end
         CODE
-        comments = Parsers::Ruby.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         expect(comments.first.title).to eql "fix naming!"
@@ -85,7 +85,7 @@ RSpec.describe Parsers::Ruby do
           def foo
           end
         CODE
-        comments = Parsers::Ruby.instance.extract(contents)
+        comments = extract(contents)
 
         expect(comments.length).to eql 2
         comments.first.tap do |c|
@@ -100,5 +100,9 @@ RSpec.describe Parsers::Ruby do
         end
       end
     end
+  end
+
+  def extract(contents)
+    Parsers::Ruby.instance.extract(contents)
   end
 end
