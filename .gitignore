@@ -18,3 +18,5 @@
 
 tags
 .env*
+
+**/.DS_Store
