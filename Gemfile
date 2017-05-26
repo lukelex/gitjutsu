@@ -10,6 +10,7 @@ gem "jquery-rails"
 gem "turbolinks", "~> 5"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 3.0"
+gem "dotenv-rails"
 
 gem "slim"
 gem "omniauth-github"
@@ -18,7 +19,6 @@ gem "octokit"
 gem "closed_struct"
 
 group :development, :test do
-  gem "dotenv-rails"
   gem "rspec"
   gem "better_errors"
   gem "binding_of_caller"
