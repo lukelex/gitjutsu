@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate, except: :home
 
   def home
-    redirect_to(repositories_path) if signed_in?
+    return redirect_to(repositories_path) if signed_in?
 
     render "home/index"
   end
@@ -16,10 +16,16 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    !!current_user&.github_token.present?
+    !!current_user.github_token.present?
   end
 
   def current_user
-    @_current_user ||= User.find_by(remember_token: session[:user_token])
+    @_current_user ||=
+      User.find_by(remember_token: session[:user_token]) ||
+      UnknownUser.new
+  end
+
+  class UnknownUser
+    def github_token ; end
   end
 end
