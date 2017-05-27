@@ -7,9 +7,14 @@ module Parsers
 
     TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
     BODY = /\#/
+    EXTENSION = /.rb$/
 
     def initialize
       @engine = Engine.new(TITLE, BODY)
+    end
+
+    def able?(filename)
+      EXTENSION.match? filename.to_s
     end
 
     def extract(contents)

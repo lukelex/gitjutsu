@@ -2,6 +2,16 @@ require "rspec"
 require_relative "../../app/models/parsers/javascript"
 
 RSpec.describe Parsers::Javascript do
+  describe "#able?" do
+    it "with a ruby file name" do
+      expect(able?("test.js")).to be true
+    end
+
+    it "with a js file name" do
+      expect(able?("test.rb")).to be false
+    end
+  end
+
   describe "#extract" do
     context "with a single comment" do
       it "isolated" do
@@ -115,6 +125,10 @@ RSpec.describe Parsers::Javascript do
         end
       end
     end
+  end
+
+  def able?(filename)
+    Parsers::Javascript.instance.able?(filename)
   end
 
   def extract(contents)
