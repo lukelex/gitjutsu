@@ -19,6 +19,9 @@ module Github
       else
         { scope: "public_repo,user:email" }
       end
+
+      # TODO: figure out why "access" is nil
+      { scope: SCOPES }
     end
   end
 end
