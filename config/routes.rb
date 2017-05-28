@@ -1,5 +1,9 @@
+require "resque/server"
+
 Rails.application.routes.draw do
   default_url_options host: "gitdoer.io"
+
+  mount Resque::Server.new, at: "/resque"
 
   root to: "application#home"
 

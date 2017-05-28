@@ -12,6 +12,7 @@ gem "turbolinks", "~> 5"
 # gem "redis", "~> 3.0"
 
 gem "dotenv-rails"
+gem "resque", "~> 1.27"
 gem "slim"
 gem "omniauth-github"
 gem "octokit"
