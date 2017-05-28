@@ -8,7 +8,7 @@ class AnalysesController < ApplicationController
       event: event,
       payload: event_params
 
-    head :created
+    head :accepted
   end
 
   private
@@ -16,7 +16,7 @@ class AnalysesController < ApplicationController
   def event_params
     case event
     when "push"
-      params.except "sender", "pusher", "repository"
+      params.except "sender", "pusher", "repository", "controller", "action"
     when "pull_request"
       params.require :pull_request
     end

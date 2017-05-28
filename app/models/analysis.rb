@@ -4,15 +4,20 @@ class Analysis < ApplicationRecord
   validates :payload, presence: true
   validates_with EventValidator
 
-  after_commit :enqueue_job
+  after_create :enqueue_job
 
   PENDING = "Analyzing...".freeze
   ERROR   = "Errored".freeze
+  PARSERS = [
+    ::Parsers::Ruby,
+    ::Parsers::Javascript,
+    ::Parsers::Unidentified
+  ].freeze
 
   def start(live: false)
     analyzing(live) do
-      pull_request.files.map do |file|
-        ::Parsers::Ruby.instance.extract file.patch
+      changed_files.map do |file|
+        [file.filename, extract_todos(file.patch)]
       end
     end
   end
@@ -20,7 +25,7 @@ class Analysis < ApplicationRecord
   private
 
   def enqueue_job
-    # AnalysisJob.create(id: anal.id)
+    AnalysisJob.perform_later(id: id)
   end
 
   def analyzing(live)
@@ -30,9 +35,23 @@ class Analysis < ApplicationRecord
         pull_request.set_status(:success, summarize(files.flatten))
       end
     end
-  rescue
+  rescue => e
     pull_request.set_status(:error, ERROR) if live
     raise
+  end
+
+  def changed_files
+    return pull_request.files if pull_request?
+
+    repository
+      .compare(payload.fetch("after"), payload.fetch("before"))
+      .files
+  end
+
+  def extract_todos(patch)
+    PARSERS
+      .find { |parser| parser.instance.able?(patch) }
+      .instance.extract(patch)
   end
 
   def pull_request

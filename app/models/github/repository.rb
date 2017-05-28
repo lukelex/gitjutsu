@@ -9,6 +9,10 @@ module Github
       Hooks.new(api: api).remove full_name, hook_id
     end
 
+    def compare(start, endd)
+      api.compare full_name, start, endd
+    end
+
     def pull_request(number:, sha:)
       PullRequest.new \
         api: api,
