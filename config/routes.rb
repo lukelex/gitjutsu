@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   root to: "application#home"
 
   get "/auth/github/callback", to: "sessions#create"
+  get :sign_out, to: "sessions#destroy"
 
   resources :repositories
 

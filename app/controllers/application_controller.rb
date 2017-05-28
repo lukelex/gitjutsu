@@ -9,14 +9,14 @@ class ApplicationController < ActionController::Base
     render "home/index"
   end
 
+  helper_method def signed_in?
+    !!current_user.github_token.present?
+  end
+
   private
 
   def authenticate
     redirect_to(root_path) unless signed_in?
-  end
-
-  def signed_in?
-    !!current_user.github_token.present?
   end
 
   def current_user

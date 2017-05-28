@@ -15,6 +15,12 @@ class SessionsController < ApplicationController
     redirect_to repositories_path
   end
 
+  def destroy
+    session[:user_token] = nil
+
+    redirect_to root_path
+  end
+
   private
 
   def create_session
