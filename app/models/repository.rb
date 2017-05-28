@@ -2,10 +2,11 @@ class Repository < ApplicationRecord
   belongs_to :account
   has_many :analyses
 
-  validates :name, :account, presence: true
+  validates :name, :github_id, :account, presence: true
 
-  after_create :create_hook
-  after_destroy :remove_hook
+  after_commit do
+    active ? create_github_hook : remove_github_hook
+  end
 
   def full_name
     "#{account.user.github_username}/#{name}"
@@ -16,13 +17,17 @@ class Repository < ApplicationRecord
 
   private
 
-  def create_hook
-    source.create_hook(hook_id: hook_id).tap do |hook|
+  def create_github_hook
+    return if hook_id
+
+    source.create_hook(github_id: github_id).tap do |hook|
       update! hook_id: hook.id
     end
   end
 
-  def remove_hook
+  def remove_github_hook
+    return unless hook_id
+
     if source.remove_hook(hook_id: hook_id)
       update! hook_id: nil
     end
@@ -30,7 +35,7 @@ class Repository < ApplicationRecord
 
   def source
     Github::Repository.new \
-      full_name: full_name,
+      name: name,
       api: account.user.github_api
   end
 end
