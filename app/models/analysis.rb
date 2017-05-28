@@ -31,7 +31,7 @@ class Analysis < ApplicationRecord
   def analyzing(live)
     pull_request.set_status(:pending, PENDING) if live
     yield.tap do |files|
-      if live && update(finished_at: Time.zone.now)
+      if update(finished_at: Time.zone.now) && live
         pull_request.set_status(:success, summarize(files.flatten))
       end
     end
