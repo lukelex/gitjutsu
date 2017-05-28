@@ -9,6 +9,11 @@ module Github
       Hooks.new(api: api).remove full_name, hook_id
     end
 
+    def create_issue(title, body)
+      api.create_issue full_name, title, body,
+        labels: "todos"
+    end
+
     def compare(start, endd)
       api.compare full_name, start, endd
     end

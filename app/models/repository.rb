@@ -12,6 +12,7 @@ class Repository < ApplicationRecord
   end
 
   delegate :pull_request, :compare, to: :source
+  delegate :create_issue, to: :source
 
   private
 
