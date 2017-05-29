@@ -29,7 +29,7 @@ class Analysis < ApplicationRecord
   private
 
   def enqueue_job
-    AnalysisJob.perform_later(id: id)
+    AnalysisJob.perform_later id
   end
 
   def analyzing(live)
