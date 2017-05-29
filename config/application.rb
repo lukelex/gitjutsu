@@ -18,6 +18,5 @@ module Gitdoer
     config.action_controller.include_all_helpers = false
 
     config.autoload_paths << "#{Rails.root}/models/github/"
-    config.autoload_paths << "#{Rails.root}/validators/"
   end
 end
