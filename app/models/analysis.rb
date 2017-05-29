@@ -4,7 +4,7 @@ class Analysis < ApplicationRecord
   validates :payload, presence: true
   validates_with EventValidator
 
-  after_create :enqueue_job
+  after_create_commit :enqueue_job
 
   PENDING = "Analyzing...".freeze
   ERROR   = "Errored".freeze
