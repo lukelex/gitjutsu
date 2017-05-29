@@ -15,8 +15,16 @@ module Github
       Hooks.new(api: api).remove name, hook_id
     end
 
+    def issues
+      api.list_issues name
+    end
+
     def create_issue(title, body)
       api.create_issue name, title, body, labels: "todos"
+    end
+
+    def close_issue(number)
+      api.close_issue name, number
     end
 
     def compare(start, endd)

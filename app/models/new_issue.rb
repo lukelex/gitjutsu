@@ -11,6 +11,9 @@ class NewIssue
 
       Description:
       #{@todo.body}
+
+      [//]: # (gitdoer-metadata: #{@todo.unique_id(filename: @file)})
+
     BODY
   end
 
