@@ -25,7 +25,7 @@ class AnalysesController < ApplicationController
   end
 
   def repository
-    Repository.find_by(hook_id: params[:hook_id])
+    Repository.find_by(github_id: params[:github_id])
   end
 
   delegate :secure_compare, to: Rack::Utils

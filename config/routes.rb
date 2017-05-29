@@ -17,5 +17,5 @@ Rails.application.routes.draw do
 
   resources :repositories, only: %i(index update)
 
-  post "/analyses/:hook_id" => "analyses#create", as: "analyse"
+  post "/analyses/:github_id" => "analyses#create", as: "analyse"
 end
