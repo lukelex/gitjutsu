@@ -1,6 +1,6 @@
 module Github
   class Hooks < ClosedStruct
-    EVENTS = ["push", "pull_request"]
+    EVENTS = ["push", "pull_request"].freeze
 
     def create(repo_name, callback_endpoint)
       api.create_hook repo_name, "web",
