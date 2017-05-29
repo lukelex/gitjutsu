@@ -22,6 +22,10 @@ class Analysis < ApplicationRecord
     end
   end
 
+  Github::Hooks::EVENTS.each do |name|
+    define_method("#{name}?") { event == name }
+  end
+
   private
 
   def enqueue_job
