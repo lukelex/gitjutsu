@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   when "development"
     default_url_options host: "localhost:3000"
   else
-    default_url_options host: "mysterious-wave-31848.herokuapp.com"
+    default_url_options host: "mysterious-wave-31848.herokuapp.com", protocol: "https"
   end
 
   mount Resque::Server.new, at: "/resque"
