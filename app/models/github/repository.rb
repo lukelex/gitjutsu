@@ -1,3 +1,5 @@
+require "closed_struct"
+
 module Github
   class Repository < ClosedStruct
     def create_hook(github_id:)
