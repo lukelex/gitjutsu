@@ -18,5 +18,7 @@ module Gitdoer
     config.action_controller.include_all_helpers = false
 
     config.autoload_paths << "#{Rails.root}/models/github/"
+
+    config.active_job.queue_adapter = :resque
   end
 end
