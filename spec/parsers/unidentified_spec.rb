@@ -1,4 +1,4 @@
-require "rspec"
+require "spec_helper"
 require_relative "../../app/models/parsers/unidentified"
 
 RSpec.describe Parsers::Unidentified do

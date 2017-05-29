@@ -25,7 +25,7 @@ gem "octokit"
 gem "closed_struct"
 
 group :development, :test do
-  gem "rspec"
+  gem "rspec-rails", "~> 3.5"
   gem "better_errors"
   gem "binding_of_caller"
   gem "pry"

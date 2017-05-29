@@ -1,4 +1,4 @@
-require "rspec"
+require "spec_helper"
 require_relative "../../app/models/parsers/ruby"
 
 RSpec.describe Parsers::Ruby do
