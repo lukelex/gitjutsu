@@ -1,50 +1,34 @@
 class RepositoriesController < ApplicationController
-  before_action :set_repository, only: [:show, :edit, :update, :destroy]
-
   def index
-    @repositories = Repository.all
-  end
+    user_repos   = current_user.repositories
+    github_repos = current_user.github_api.repos
+      .sort_by { |repo| repo.permissions.admin.to_s }.reverse
 
-  def show
-  end
+    @repos = github_repos.map do |github_repo|
+      user_repo = user_repos
+        .find { |ur| ur.github_id == github_repo.id }
 
-  def new
-    @repository = Repository.new
-  end
-
-  def edit
-  end
-
-  def create
-    @repository = Repository.new(repository_params)
-
-    if @repository.save
-      redirect_to @repository, notice: 'Repository was successfully created.'
-    else
-      render :new
+      RepositoryForm.new(github_repo, user_repo)
     end
   end
 
   def update
-    if @repository.update(repository_params)
-      redirect_to @repository, notice: 'Repository was successfully updated.'
-    else
-      render :edit
-    end
-  end
+    repository = current_user.account.repositories.find_or_initialize_by(github_id: params[:id])
 
-  def destroy
-    @repository.destroy
-    redirect_to repositories_url, notice: 'Repository was successfully destroyed.'
+    if repository.update(update_params)
+      flash[:success] = t(".#{repository.active ? 'activated' : 'deactivated'}")
+    else
+      flash[:error] = t(".failed")
+    end
+
+    redirect_to repositories_path
   end
 
   private
 
-  def set_repository
-    @repository = Repository.find(params[:id])
-  end
-
-  def repository_params
-    params.require(:repository).permit(:name)
+  def update_params
+    @_update_params ||= params
+      .require(:repository)
+      .permit(:name, :active)
   end
 end

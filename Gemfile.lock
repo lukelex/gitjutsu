@@ -63,6 +63,8 @@ GEM
     faraday (0.11.0)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18)
+    font-awesome-rails (4.7.0.2)
+      railties (>= 3.2, < 5.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     hashie (3.5.5)
@@ -242,6 +244,7 @@ DEPENDENCIES
   binding_of_caller
   closed_struct
   dotenv-rails
+  font-awesome-rails
   octokit
   omniauth-github
   pg (~> 0.18)

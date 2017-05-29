@@ -7,5 +7,37 @@ html
 
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track": "reload"
     = javascript_include_tag "application", "data-turbolinks-track": "reload"
+
   body
-    = yield
+    nav.navbar.navbar-inverse role="navigation"
+      .container
+        .navbar-header
+          button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
+          = link_to "GitDoer", root_path, class: "navbar-brand"
+
+        - if signed_in?
+          .dropdown
+            button#dropdownMenu1.btn.btn-default.dropdown-toggle aria-expanded="true" aria-haspopup="true" data-toggle="dropdown" type="button"
+              i.fa.fa-user
+              span.caret
+            ul.dropdown-menu aria-labelledby="dropdownMenu1"
+              li
+                a href="#" Preferences
+              li
+                a href="#" Another action
+              li.divider role="separator"
+              li
+                = link_to "Sign out", sign_out_path
+
+    .container
+      = flash_messages
+      .row
+        = yield
+
+    .container
+      .center-block
+        p
+          | GitDoer © - #{Time.zone.now.year}
+          br
+          | Powered By
+          a href="http://codelogic.me" target="_blank" &nbsp;Codelogic

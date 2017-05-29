@@ -10,5 +10,16 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
+//= require bootstrap/js/alert
+//= require bootstrap/js/dropdown
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function() {
+  $("[data-behavior*='submit']").on("change", function(event) {
+    event.preventDefault();
+
+    $(this).closest("form").submit();
+  })
+});

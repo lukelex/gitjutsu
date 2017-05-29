@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "/auth/github/callback", to: "sessions#create"
   get :sign_out, to: "sessions#destroy"
 
-  resources :repositories
+  resources :repositories, only: %i(index update)
 
   post "/analyses/:hook_id" => "analyses#create", as: "analyse"
 end
