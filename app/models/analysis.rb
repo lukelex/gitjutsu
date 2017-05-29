@@ -17,7 +17,7 @@ class Analysis < ApplicationRecord
   def start(live: false)
     analyzing(live) do
       changed_files.map do |file|
-        [file.filename, extract_todos(file.patch)]
+        [file.filename, extract_todos(file)]
       end
     end
   end
@@ -53,10 +53,10 @@ class Analysis < ApplicationRecord
       .files
   end
 
-  def extract_todos(patch)
+  def extract_todos(file)
     PARSERS
-      .find { |parser| parser.instance.able?(patch) }
-      .instance.extract(patch)
+      .find { |parser| parser.instance.able?(file.filename) }
+      .instance.extract(file.patch)
   end
 
   def pull_request
