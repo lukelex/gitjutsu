@@ -36,6 +36,4 @@ test:
 #
 production:
   <<: *default
-  database: gitdoer_production
-  username: gitdoer
-  password: <%= ENV['GITDOER_DATABASE_PASSWORD'] %>
+  url: <%= ENV["DATABASE_URL"] %>
