@@ -1,4 +1,8 @@
 class RepositoriesController < ApplicationController
+  rescue_from Octokit::NotFound do |exc|
+    redirect_to root_path, error: exc.message
+  end
+
   def index
     user_repos   = current_user.repositories
     github_repos = current_user.github_api.repos
