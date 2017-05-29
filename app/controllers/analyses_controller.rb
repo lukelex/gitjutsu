@@ -4,6 +4,8 @@ class AnalysesController < ApplicationController
   before_action :verify_github_authenticity
 
   def create
+    return head(:accepted) if ping?
+
     repository.analyses.create \
       event: event,
       payload: event_params
@@ -33,6 +35,10 @@ class AnalysesController < ApplicationController
 
   def payload_signature
     "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), ENV["SECRET_TOKEN"], request.body.read)
+  end
+
+  def ping?
+    event == "ping"
   end
 
   def event
