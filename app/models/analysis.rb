@@ -49,7 +49,7 @@ class Analysis < ApplicationRecord
     return pull_request.files if pull_request?
 
     repository
-      .compare(payload.fetch("after"), payload.fetch("before"))
+      .compare(payload.fetch("before"), payload.fetch("after"))
       .files
   end
 
