@@ -4,23 +4,27 @@ module Github
       Hooks.new(api: api).create name, analyse_url(github_id)
     end
 
+    def toggle_hook(github_id:, hook_id:, active:)
+      Hooks.new(api: api).update name, hook_id,
+        analyse_url(github_id), active
+    end
+
     def remove_hook(hook_id:)
       Hooks.new(api: api).remove name, hook_id
     end
 
     def create_issue(title, body)
-      api.create_issue full_name, title, body,
-        labels: "todos"
+      api.create_issue name, title, body, labels: "todos"
     end
 
     def compare(start, endd)
-      api.compare full_name, start, endd
+      api.compare name, start, endd
     end
 
     def pull_request(number:, sha:)
       PullRequest.new \
         api: api,
-        repo_name: full_name,
+        repo_name: name,
         number: number,
         sha: sha
     end

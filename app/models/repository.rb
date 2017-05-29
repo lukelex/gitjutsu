@@ -4,9 +4,9 @@ class Repository < ApplicationRecord
 
   validates :name, :github_id, :account, presence: true
 
-  after_commit do
-    active ? create_github_hook : remove_github_hook
-  end
+  after_create_commit :create_github_hook
+  after_update_commit :toggle_github_hook
+  after_destroy_commit :remove_github_hook
 
   def full_name
     "#{account.user.github_username}/#{name}"
@@ -20,9 +20,16 @@ class Repository < ApplicationRecord
   def create_github_hook
     return if hook_id
 
-    source.create_hook(github_id: github_id).tap do |hook|
-      update! hook_id: hook.id
-    end
+    source
+      .create_hook(github_id: github_id)
+      .tap { |hook| update! hook_id: hook.id }
+  end
+
+  def toggle_github_hook
+    source.toggle_hook \
+      github_id: github_id,
+      hook_id: hook_id,
+      active: active
   end
 
   def remove_github_hook
