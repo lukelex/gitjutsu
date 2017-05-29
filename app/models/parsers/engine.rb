@@ -49,11 +49,11 @@ module Parsers
 
   class Todo < ClosedStruct
     def addition?
-      !!(/^\+/ =~ line)
+      /^\+/.match? line
     end
 
     def removal?
-      !!(/^\-/ =~ line)
+      /^\-/.match? line
     end
   end
 end
