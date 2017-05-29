@@ -1,7 +1,12 @@
 require "resque/server"
 
 Rails.application.routes.draw do
-  default_url_options host: "gitdoer.io"
+  case Rails.env
+  when "development"
+    default_url_options host: "localhost:3000"
+  else
+    default_url_options host: "mysterious-wave-31848.herokuapp.com"
+  end
 
   mount Resque::Server.new, at: "/resque"
 
