@@ -6,7 +6,7 @@ class AnalysesController < ApplicationController
   def create
     return head(:accepted) if ping?
 
-    repository.analyses.create! \
+    repository.analyses.create \
       event: event,
       payload: event_params
 
