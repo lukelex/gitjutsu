@@ -34,10 +34,10 @@ class Analysis < ApplicationRecord
 
   def analyzing(live)
     pull_request.set_status(:pending, PENDING) if live
-    yield.tap do |files|
+    yield.tap do |result|
       if update(finished_at: Time.zone.now) && live
-        all_todos = files.flat_map { |_file, todos| todos }
-        pull_request.set_status(:success, summarize(all_todos))
+        summary = Summarize.new(result)
+        pull_request.set_status(:success, summary.to_s)
       end
     end
   rescue => e
@@ -63,14 +63,5 @@ class Analysis < ApplicationRecord
     @_pull_request ||= repository.pull_request \
       number: payload.fetch("number"),
       sha: payload.dig("head", "sha")
-  end
-
-  def summarize(todos)
-    additions = todos.select(&:addition?).count
-    removals = todos.select(&:removal?).count
-
-    return "Nothing changed" if additions.zero? && removals.zero?
-
-    "#{additions} added & #{removals} removed TODOs"
   end
 end
