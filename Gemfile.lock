@@ -254,7 +254,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3)
   closed_struct
   dotenv-rails
-  font-awesome-rails
+  font-awesome-rails (~> 4.7)
   jquery-rails (~> 4.3)
   octokit
   omniauth-github

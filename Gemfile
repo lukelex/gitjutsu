@@ -8,7 +8,7 @@ gem "redis-rails", "~> 5.0"
 
 gem "jquery-rails", "~> 4.3"
 gem "bootstrap-sass", "~> 3.3"
-gem "font-awesome-rails"
+gem "font-awesome-rails", "~> 4.7"
 gem "sass-rails", "~> 5.0"
 gem "uglifier", ">= 1.3.0"
 
