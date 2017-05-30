@@ -16,8 +16,9 @@ class NewIssue
 
   private
 
-  # TODO: consider using target branch
+  # TODO: consider using the repo's target branch
+  # Check payloads=>repository
   def path_to_file
-    "https://github.com/#{@repo.full_name}/blob/master/#{@file}#L#{@todo.line_number}"
+    "https://github.com/#{@repo.name}/blob/master/#{@file}#L#{@todo.line_number}"
   end
 end

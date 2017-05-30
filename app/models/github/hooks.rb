@@ -1,3 +1,5 @@
+require "closed_struct"
+
 module Github
   class Hooks < ClosedStruct
     EVENTS = ["push", "pull_request"]
