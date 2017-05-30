@@ -36,7 +36,7 @@ class Analysis < ApplicationRecord
     pull_request.set_status(:pending, PENDING) if live
     yield.tap do |result|
       if update(finished_at: Time.zone.now) && live
-        summary = Summarize.new(result)
+        summary = Summary.new(result)
         pull_request.set_status(:success, summary.to_s)
       end
     end
