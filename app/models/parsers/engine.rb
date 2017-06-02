@@ -31,7 +31,7 @@ module Parsers
         lines_after_title = all_lines[(comment_line.last+1)..(all_lines.length-1)]
 
         bodies[comment_line] = lines_after_title
-          .take_while { |line| line =~ @body_pattern } # @body_pattern.match?(line)
+          .take_while { |line| line =~ @body_pattern } # TODO: use @body_pattern.match?(line)
           .join("\n")
       end
       bodies

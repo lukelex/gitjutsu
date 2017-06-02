@@ -6,8 +6,8 @@ module Parsers
     include ::Singleton
 
     TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
-    BODY = /\#/
-    EXTENSION = /.rb$/
+    BODY = /(?!.*?TODO\s*:)#.*$/i
+    EXTENSION = /.rb$/i
 
     def initialize
       @engine = Engine.new(TITLE, BODY)

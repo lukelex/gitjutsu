@@ -43,6 +43,33 @@ RSpec.describe Parsers::Ruby do
           expect(cmt.line_number).to eql 4
         end
       end
+
+      it "at the end of the line" do
+        contents = <<~CODE
+          [[1, "a"], [2, "b"]].to_h # TODO: write a test for this later
+        CODE
+
+        comments = extract(contents)
+
+        expect(comments.length).to eql 1
+        expect(comments.first.title).to eql "write a test for this later"
+      end
+
+      it "at the end of the line with another one right below it" do
+        contents = <<~CODE
+          [[1, "a"], [2, "b"]].to_h # TODO: write a test for this later
+          # TODO: this is a completely different comment
+        CODE
+
+        comments = extract(contents)
+
+        expect(comments.length).to eql 2
+        comments.first.tap do |cmt|
+          expect(cmt.title).to eql "write a test for this later"
+          expect(cmt.body).to eql ""
+        end
+        expect(comments.last.title).to eql "this is a completely different comment"
+      end
     end
 
     context "multiple comments" do
