@@ -7,9 +7,12 @@ class Summary
     additions = todos.select(&:addition?).count
     removals = todos.select(&:removal?).count
 
-    return "Nothing changed" if additions.zero? && removals.zero?
+    return "Nothing to do" if additions.zero? && removals.zero?
 
-    "#{additions} added & #{removals} removed TODOs"
+    [].tap { |summary|
+      summary.push("#{additions} added") if additions > 0
+      summary.push("#{removals} removed") if removals > 0
+    }.to_sentence + " TODO's"
   end
 
   private
