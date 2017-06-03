@@ -5,6 +5,7 @@ module Parsers
   class Ruby
     include ::Singleton
 
+    COMMENT_SIGN = "#".freeze
     TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
     BODY = /(?!.*?TODO\s*:)#.*$/i
     EXTENSION = /.rb$/i

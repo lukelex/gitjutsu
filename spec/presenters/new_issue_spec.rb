@@ -20,6 +20,33 @@ RSpec.describe NewIssue do
           expect(txt).to match(/\[\/{2}\]: # \(gitdoer-metadata: 123abc\)/)
         end
       end
+
+      it "with a description" do
+        description = <<~DESC
+          + # It should test wether we&#39;re correctly adding or removing
+          + # them on both existing and non-existing scenarios
+          - // aside from everything
+        DESC
+        todo = ClosedStruct.new(body: description, line_number: 17) do
+          def unique_id(**)
+            "123abc"
+          end
+        end
+        issue = described_class.new(repo, file, todo)
+
+        issue.body.tap do |txt|
+          expect(txt).not_to include("+ # It should")
+          expect(txt).to include("It should")
+
+          expect(txt).not_to include("+ # them on")
+          expect(txt).to include("them on")
+
+          expect(txt).not_to include("- // aside from")
+          expect(txt).to include("aside from")
+
+          expect(txt).to match(/\[\/{2}\]: # \(gitdoer-metadata: 123abc\)/)
+        end
+      end
     end
 
     context "given a TODO without a description" do

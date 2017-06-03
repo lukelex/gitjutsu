@@ -1,8 +1,8 @@
 [<%= @file %>:<%= @todo.line_number %>](<%= @path_to_file_on_github %>)
 
-<% if @todo.body.present? %>
+<% if @description.present? %>
   Description:
-  <%= @todo.body %>
+  <%= @description %>
 <% end %>
 
 [//]: # (gitdoer-metadata: <%= @todo.unique_id(filename: @file) %>)

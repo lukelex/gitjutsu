@@ -10,11 +10,19 @@ class NewIssue
   def body
     render "issues/body.md.erb", vars: {
       repo: @repo, file: @file, todo: @todo,
+      description: description,
       path_to_file_on_github: path_to_file_on_github
     }
   end
 
   private
+
+  def description
+    signs = Parsers::All.comment_signs.join("|")
+    @todo.body.split("\n")
+      .map { |line| line.gsub(/[+-]\s*(#{signs})/, "").strip }
+      .join("\n")
+  end
 
   # TODO: consider using the repo's target branch
   # Check payload=>repository

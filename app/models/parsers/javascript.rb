@@ -5,6 +5,7 @@ module Parsers
   class Javascript
     include ::Singleton
 
+    COMMENT_SIGN = "//".freeze
     TITLE = /\/{2}\s*TODO\s*:?\s*(?<title>.+)/i
     BODY = /(?!.*?TODO\s*:)\/{2}.*$/i
     EXTENSION = /.js$/i

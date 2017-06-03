@@ -1,3 +1,5 @@
+require "parsers/all"
+
 class Analysis < ApplicationRecord
   belongs_to :repository
 
@@ -8,11 +10,6 @@ class Analysis < ApplicationRecord
 
   PENDING = "Analyzing...".freeze
   ERROR   = "Errored".freeze
-  PARSERS = [
-    ::Parsers::Ruby,
-    ::Parsers::Javascript,
-    ::Parsers::Unidentified
-  ].freeze
 
   def start(live: false)
     analyzing(live) do
@@ -54,9 +51,7 @@ class Analysis < ApplicationRecord
   end
 
   def extract_todos(file)
-    PARSERS
-      .find { |parser| parser.instance.able?(file.filename) }
-      .instance.extract(file.patch)
+    Parsers::All.extract_from file
   end
 
   def pull_request
