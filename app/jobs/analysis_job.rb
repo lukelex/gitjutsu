@@ -16,27 +16,33 @@ class AnalysisJob < ApplicationJob
   private
 
   def persist_issues_on_github(repository, files_and_todos)
-    existing_issues = repository.issues.select do |i|
-      i.labels.any? { |l| l.name.include?("todos") }
-    end
-
     files_and_todos.each do |filename, todos|
       todos.each do |todo|
-        if todo.addition?
+        existing = find_issue(repository, filename, todo)
+
+        # TODO: Add feature tests for adding and removing TODO's
+        # It should test wether we're correctly adding or removing
+        # them on both existing and non-existing scenarios
+        if existing && todo.removal?
+          repository.close_issue issue.number
+        elsif (not existing) && todo.addition?
           issue = NewIssue.new(repository, filename, todo)
-          repository.create_issue(issue.title, issue.body)
-        elsif todo.removal?
-          issue = find_issue(existing_issues, filename, todo) || next
-          repository.close_issue(issue.number)
+          repository.create_issue issue.title, issue.body
         end
       end
     end
   end
 
-  def find_issue(issues, filename, todo)
-    issues.find do |issue|
+  def find_issue(repository, filename, todo)
+    existing_issues(repository).find do |issue|
       unique_id = METADATA.match(issue.body)
       unique_id.to_s == todo.unique_id(filename: filename)
+    end
+  end
+
+  def existing_issues(repository)
+    @existing_issues ||= repository.issues.select do |i|
+      i.labels.any? { |l| l.name.include?("todos") }
     end
   end
 
