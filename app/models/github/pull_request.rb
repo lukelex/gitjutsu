@@ -4,13 +4,8 @@ module Github
       @api, @repo_name, @number, @sha = api, repo_name, number, sha
     end
 
-    def files
-      @api.pull_request_files(@repo_name, @number)
-      # @api.pull_request_files(@repo_name, @number).map do |file|
-      #   CommitFile.new \
-      #     filename: file.filename,
-      #     commit: ""
-      # end
+    def production_files
+      files.reject(&:test_file?)
     end
 
     def set_status(state, description, target_url: nil)
@@ -19,6 +14,13 @@ module Github
         context: "GitDoer",
         description: description,
         target_url: target_url
+    end
+
+    private
+
+    def files
+      @api.pull_request_files(@repo_name, @number)
+        .map(&File.method(:new))
     end
   end
 end

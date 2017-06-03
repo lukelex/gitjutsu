@@ -46,11 +46,11 @@ class Analysis < ApplicationRecord
   end
 
   def changed_files
-    return pull_request.files if pull_request?
+    return pull_request.production_files if pull_request?
 
-    repository
-      .compare(payload.fetch("before"), payload.fetch("after"))
-      .files
+    repository.compare_files \
+      payload.fetch("before"),
+      payload.fetch("after")
   end
 
   def extract_todos(file)

@@ -27,10 +27,6 @@ module Github
       api.close_issue name, number
     end
 
-    def compare(start, endd)
-      api.compare name, start, endd
-    end
-
     def pull_request(number:, sha:)
       PullRequest.new \
         api: api,
@@ -39,7 +35,16 @@ module Github
         sha: sha
     end
 
+    def compare_files(before, after)
+      compare(before, after)
+        .files.map(&Github::File.method(:new))
+    end
+
     private
+
+    def compare(start, endd)
+      api.compare name, start, endd
+    end
 
     def analyse_url(param)
       Rails.application.routes.url_helpers.analyse_url(param)

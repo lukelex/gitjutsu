@@ -12,7 +12,7 @@ class Repository < ApplicationRecord
     "#{account.user.github_username}/#{name}"
   end
 
-  delegate :pull_request, :compare, to: :source
+  delegate :pull_request, :compare_files, to: :source
   delegate :issues, :create_issue, to: :source
 
   private
