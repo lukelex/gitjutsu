@@ -7,9 +7,10 @@ module Parsers
     extend self
 
     PARSERS = [
-      ::Parsers::Ruby,
-      ::Parsers::Javascript,
-      ::Parsers::Unidentified
+      Ruby,
+      Javascript,
+      Unidentified,
+      Python
     ].freeze
 
     def extract_from(file)
