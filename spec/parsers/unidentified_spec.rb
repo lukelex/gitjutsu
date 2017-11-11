@@ -6,6 +6,7 @@ RSpec.describe Parsers::Unidentified do
     expect(Parsers::Unidentified.instance.able?("**.**")).to be true
     expect(Parsers::Unidentified.instance.able?("file.rb")).to be true
     expect(Parsers::Unidentified.instance.able?("file.js")).to be true
+    expect(Parsers::Unidentified.instance.able?("file.py")).to be true
   end
 
   it "#extract?" do
