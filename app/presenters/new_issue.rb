@@ -20,7 +20,7 @@ class NewIssue
   def description
     signs = Parsers::All.comment_signs.join("|")
     @todo.body.split("\n")
-      .map { |line| ">" + line.gsub(/[+-]\s*(#{signs})/, "").strip }
+      .map { |line| "> " + line.gsub(/[+-]\s*(#{signs})/, "").strip }
       .join("\n")
   end
 

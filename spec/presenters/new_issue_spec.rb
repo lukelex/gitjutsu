@@ -34,18 +34,16 @@ RSpec.describe NewIssue do
         end
         issue = described_class.new(repo, file, todo)
 
-        issue.body.tap do |txt|
-          expect(txt).not_to include("+ # It should")
-          expect(txt).to include("It should")
+        expect(issue.body).to eq <<~ISSUE
+        [test-file:17](https://github.com/test-repo/blob/master/test-file#L17)
 
-          expect(txt).not_to include("+ # them on")
-          expect(txt).to include("them on")
+          Description:
+          &gt; It should test wether we&amp;#39;re correctly adding or removing
+        &gt; them on both existing and non-existing scenarios
+        &gt; aside from everything
 
-          expect(txt).not_to include("- // aside from")
-          expect(txt).to include("aside from")
-
-          expect(txt).to match(/\[\/{2}\]: # \(gitdoer-metadata: 123abc\)/)
-        end
+        [//]: # (gitdoer-metadata: 123abc)
+        ISSUE
       end
     end
 
