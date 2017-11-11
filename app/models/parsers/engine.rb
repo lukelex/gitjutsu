@@ -22,7 +22,7 @@ module Parsers
     def find_comment_lines(code_lines)
       code_lines
         .each_with_index
-        .select { |x, i| x =~ @title_pattern }
+        .select { |x, i| @title_pattern.match(x) }
     end
 
     def find_body_lines(all_lines, comment_lines)
@@ -31,7 +31,7 @@ module Parsers
         lines_after_title = all_lines[(comment_line.last+1)..(all_lines.length-1)]
 
         bodies[comment_line] = lines_after_title
-          .take_while { |line| line =~ @body_pattern } # TODO: use @body_pattern.match?(line)
+          .take_while { |line| @body_pattern.match?(line) }
           .join("\n")
       end
       bodies
