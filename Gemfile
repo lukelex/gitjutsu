@@ -28,11 +28,11 @@ group :development, :test do
   gem "rspec-rails", "~> 3.5"
   gem "better_errors"
   gem "binding_of_caller"
-  gem "pry"
-  gem "rb-readline"
+  gem "pry", require: false
+  gem "rb-readline", require: false
 end
 
 group :development do
-  gem "guard"
+  gem "guard", require: false
   gem "guard-rspec", require: false
 end
