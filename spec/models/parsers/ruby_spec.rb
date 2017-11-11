@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../app/models/parsers/ruby"
+require_relative "../../../app/models/parsers/ruby"
 
 RSpec.describe Parsers::Ruby do
   describe "#able?" do

@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../app/models/parsers/python"
+require_relative "../../../app/models/parsers/python"
 
 RSpec.describe Parsers::Python do
   describe "#able?" do
@@ -100,7 +100,7 @@ RSpec.describe Parsers::Python do
         expect(comments.first.title).to eql "fix naming!"
         expect(comments.first.line_number).to eql 1
         expect(comments.last.title).to eql "also look at this!"
-        expect(comments.last.line_number).to eql 5
+        expect(comments.last.line_number).to eql 4
       end
     end
 
@@ -127,7 +127,7 @@ RSpec.describe Parsers::Python do
         end
         comments.last.tap do |c|
           expect(c.title).to eql "mooore multiline bitch!!"
-          expect(c.line_number).to eql 7
+          expect(c.line_number).to eql 6
           expect(c.body).to eql "# Write a more complex regex for this!\n# I triple dare you!!!"
         end
       end

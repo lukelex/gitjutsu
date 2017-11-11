@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../app/models/parsers/unidentified"
+require_relative "../../../app/models/parsers/unidentified"
 
 RSpec.describe Parsers::Unidentified do
   it "#able?" do

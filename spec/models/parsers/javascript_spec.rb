@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../../app/models/parsers/javascript"
+require_relative "../../../app/models/parsers/javascript"
 
 RSpec.describe Parsers::Javascript do
   describe "#able?" do
