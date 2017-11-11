@@ -30,6 +30,7 @@ group :development, :test do
   gem "binding_of_caller"
   gem "pry", require: false
   gem "rb-readline", require: false
+  gem "rubocop", require: false
 end
 
 group :development do
