@@ -11,7 +11,5 @@ RSpec.describe Parsers::Unidentified do
 
   it "#extract?" do
     expect(Parsers::Unidentified.instance.extract).to eql []
-    expect(Parsers::Unidentified.instance.extract).to eql []
-    expect(Parsers::Unidentified.instance.extract).to eql []
   end
 end
