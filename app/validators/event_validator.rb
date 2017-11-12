@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class EventValidator < ActiveModel::Validator
   def validate(target)
     proper_type? target

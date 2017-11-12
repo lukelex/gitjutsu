@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "parsers/all"
 
 class Analysis < ApplicationRecord
@@ -8,8 +10,8 @@ class Analysis < ApplicationRecord
 
   after_create_commit :enqueue_job
 
-  PENDING = "Analyzing...".freeze
-  ERROR   = "Errored".freeze
+  PENDING = "Analyzing..."
+  ERROR   = "Errored"
 
   def start(live: false)
     analyzing(live) do

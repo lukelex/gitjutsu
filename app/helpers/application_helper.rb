@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def flash_messages(_opts = {})
     flash.each do |msg_type, message|

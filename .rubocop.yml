@@ -18,9 +18,6 @@ Style/StringLiterals:
 Style/Documentation:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/ModuleFunction:
   EnforcedStyle: extend_self
 

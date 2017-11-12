@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "singleton"
 require_relative "./engine"
 
@@ -5,7 +7,7 @@ module Parsers
   class Python
     include ::Singleton
 
-    COMMENT_SIGN = "#".freeze
+    COMMENT_SIGN = "#"
     TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
     BODY = /(?!.*?TODO\s*:)#.*$/i
     EXTENSION = /.py$/i

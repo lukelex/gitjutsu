@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "closed_struct"
 
 module Github

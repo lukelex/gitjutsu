@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RepositoriesController < ApplicationController
   rescue_from Octokit::NotFound do |exc|
     redirect_to root_path, error: exc.message

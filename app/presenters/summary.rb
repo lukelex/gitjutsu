@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Summary
   def initialize(files_and_todos)
     @files_and_todos = files_and_todos

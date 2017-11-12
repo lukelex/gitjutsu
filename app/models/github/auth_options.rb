@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module Github
   class AuthOptions
-    SCOPES = "repo,user:email".freeze
+    SCOPES = "repo,user:email"
 
     class << self
       def setup(env)

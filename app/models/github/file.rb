@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Github
   class File < SimpleDelegator
     TEST_FILE_OR_FOLDER = %r{(
