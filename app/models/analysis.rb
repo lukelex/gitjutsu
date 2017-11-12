@@ -37,7 +37,7 @@ class Analysis < ApplicationRecord
         pull_request.set_status(:success, summary.to_s)
       end
     end
-  rescue => e
+  rescue
     pull_request.set_status(:error, ERROR) if live
     raise
   end

@@ -46,5 +46,5 @@ class AnalysisJob < ApplicationJob
     end
   end
 
-  METADATA = /(?<=\[\/{2}\]:\s\#\s\(gitdoer-metadata:\s)[^\)]+/i
+  METADATA = %r((?<=\[\/{2}\]:\s\#\s\(gitdoer-metadata:\s)[^\)]+)i
 end

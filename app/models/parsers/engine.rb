@@ -22,7 +22,7 @@ module Parsers
     def find_comment_lines(code_lines)
       code_lines
         .each_with_index
-        .select { |x, i| @title_pattern.match(x) }
+        .select { |x, _i| @title_pattern.match(x) }
     end
 
     def find_body_lines(all_lines, comment_lines)

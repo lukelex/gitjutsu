@@ -35,9 +35,7 @@ class Repository < ApplicationRecord
   def remove_github_hook
     return unless hook_id
 
-    if source.remove_hook(hook_id: hook_id)
-      update! hook_id: nil
-    end
+    update!(hook_id: nil) if source.remove_hook(hook_id: hook_id)
   end
 
   def source

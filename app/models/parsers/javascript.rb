@@ -8,7 +8,7 @@ module Parsers
     COMMENT_SIGN = "//".freeze
     TITLE = %r(\/{2}\s*TODO\s*:?\s*(?<title>.+))i
     BODY = %r((?!.*?TODO\s*:)\/{2}.*$)i
-    EXTENSION = %r(.js$)i
+    EXTENSION = /.js$/i
 
     def initialize
       @engine = Engine.new(TITLE, BODY)

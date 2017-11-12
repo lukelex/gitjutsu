@@ -36,7 +36,9 @@ class AnalysesController < ApplicationController
   end
 
   def payload_signature
-    "sha1=" + OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new("sha1"), ENV["SECRET_TOKEN"], request.body.read)
+    "sha1=" + OpenSSL::HMAC.hexdigest(
+      OpenSSL::Digest.new("sha1"), ENV["SECRET_TOKEN"], request.body.read
+    )
   end
 
   def ping?

@@ -2,7 +2,9 @@ class NewIssue
   include Renderable
 
   def initialize(repo, file, todo)
-    @repo, @file, @todo = repo, file, todo
+    @repo = repo
+    @file = file
+    @todo = todo
   end
 
   delegate :title, to: :@todo

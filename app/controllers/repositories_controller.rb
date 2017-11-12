@@ -17,7 +17,8 @@ class RepositoriesController < ApplicationController
   end
 
   def update
-    repository = current_user.account.repositories.find_or_initialize_by(github_id: params[:id])
+    repository = current_user.account.repositories
+      .find_or_initialize_by(github_id: params[:id])
 
     if repository.update(update_params)
       flash[:success] = t(".#{repository.active ? 'activated' : 'deactivated'}")

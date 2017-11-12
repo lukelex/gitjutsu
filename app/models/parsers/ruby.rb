@@ -6,9 +6,9 @@ module Parsers
     include ::Singleton
 
     COMMENT_SIGN = "#".freeze
-    TITLE = %r(\#\s*TODO\s*(:)?\s*(?<title>.+))i
-    BODY = %r((?!.*?TODO\s*:)#.*$)i
-    EXTENSION = %r(.rb$)i
+    TITLE = /\#\s*TODO\s*(:)?\s*(?<title>.+)/i
+    BODY = /(?!.*?TODO\s*:)#.*$/i
+    EXTENSION = /.rb$/i
 
     def initialize
       @engine = Engine.new(TITLE, BODY)

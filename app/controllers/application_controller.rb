@@ -26,6 +26,6 @@ class ApplicationController < ActionController::Base
   end
 
   class UnknownUser
-    def github_token ; end
+    def github_token; end
   end
 end
