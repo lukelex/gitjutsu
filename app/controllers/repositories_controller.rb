@@ -8,12 +8,7 @@ class RepositoriesController < ApplicationController
     github_repos = current_user.github_api.repos
       .sort_by { |repo| repo.permissions.admin.to_s }.reverse
 
-    @repos = github_repos.map do |github_repo|
-      user_repo = user_repos
-        .find { |ur| ur.github_id == github_repo.id }
-
-      RepositoryForm.new(github_repo, user_repo)
-    end
+    @repos = parse_all(github_repos, user_repos)
   end
 
   def update
@@ -35,5 +30,14 @@ class RepositoriesController < ApplicationController
     @_update_params ||= params
       .require(:repository)
       .permit(:name, :active)
+  end
+
+  def parse_all(github_repos, user_repos)
+    github_repos.map do |github_repo|
+      user_repo = user_repos
+        .find { |ur| ur.github_id == github_repo.id }
+
+      RepositoryForm.new(github_repo, user_repo)
+    end
   end
 end

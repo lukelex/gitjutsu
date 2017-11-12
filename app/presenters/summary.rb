@@ -9,13 +9,17 @@ class Summary
 
     return "Nothing to do" if additions.zero? && removals.zero?
 
-    [].tap { |summary|
-      summary.push("#{additions} added") if additions > 0
-      summary.push("#{removals} removed") if removals > 0
-    }.to_sentence + " TODO's"
+    change_summary additions, removals
   end
 
   private
+
+  def change_summary(additions, removals)
+    [].tap do |summary|
+      summary.push("#{additions} added") if additions.positive?
+      summary.push("#{removals} removed") if removals.positive?
+    end.to_sentence + " TODO's"
+  end
 
   def todos
     @_todos = @files_and_todos

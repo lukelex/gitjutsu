@@ -28,7 +28,9 @@ module Parsers
     def find_body_lines(all_lines, comment_lines)
       bodies = {}
       comment_lines.each do |comment_line|
-        lines_after_title = all_lines[(comment_line.last+1)..(all_lines.length-1)]
+        first_after       = comment_line.last + 1
+        last_line         = all_lines.length - 1
+        lines_after_title = all_lines[first_after..last_line]
 
         bodies[comment_line] = lines_after_title
           .take_while { |line| @body_pattern.match?(line) }
