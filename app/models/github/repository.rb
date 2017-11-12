@@ -1,13 +1,17 @@
+# frozen_string_literal: true
+
 require "closed_struct"
 
 module Github
   class Repository < ClosedStruct
     def create_hook(github_id:)
-      Hooks.new(api: api).create name, analyse_url(github_id)
+      Hooks.new(api: api).create \
+        name, analyse_url(github_id)
     end
 
     def toggle_hook(github_id:, hook_id:, active:)
-      Hooks.new(api: api).update name, hook_id,
+      Hooks.new(api: api).update \
+        name, hook_id,
         analyse_url(github_id), active
     end
 

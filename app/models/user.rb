@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "octokit"
 
 class User < ApplicationRecord
@@ -14,7 +16,8 @@ class User < ApplicationRecord
   end
 
   def github_api
-    @_github_api ||= Octokit::Client.new(access_token: github_token, auto_paginate: true)
+    @_github_api ||= Octokit::Client
+      .new(access_token: github_token, auto_paginate: true)
   end
 
   private

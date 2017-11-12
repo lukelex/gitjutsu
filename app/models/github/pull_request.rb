@@ -1,7 +1,12 @@
+# frozen_string_literal: true
+
 module Github
   class PullRequest
     def initialize(api:, repo_name:, number:, sha:)
-      @api, @repo_name, @number, @sha = api, repo_name, number, sha
+      @api = api
+      @repo_name = repo_name
+      @number = number
+      @sha = sha
     end
 
     def production_files

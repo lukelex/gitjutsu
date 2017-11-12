@@ -1,10 +1,15 @@
+# frozen_string_literal: true
+
 require "openssl"
 
 module Parsers
   class Todo < ClosedStruct
     class << self
       def calculate_id(filename, fields)
-        OpenSSL::HMAC.hexdigest OpenSSL::Digest.new("sha1"), filename, fields.join
+        OpenSSL::HMAC.hexdigest \
+          OpenSSL::Digest.new("sha1"),
+          filename,
+          fields.join
       end
     end
 

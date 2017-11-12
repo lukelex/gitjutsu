@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "omniauth"
 
 class SessionsController < ApplicationController
@@ -64,10 +66,10 @@ class SessionsController < ApplicationController
   end
 
   def update_scopes
-    if scopes_changed?
-      user.update! github_token_scopes: Github::AuthOptions::SCOPES
-      user.repositories.clear
-    end
+    return unless scopes_changed?
+
+    user.update! github_token_scopes: Github::AuthOptions::SCOPES
+    user.repositories.clear
   end
 
   def scopes_changed?

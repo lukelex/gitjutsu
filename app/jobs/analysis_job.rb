@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AnalysisJob < ApplicationJob
   queue_as :default
 
@@ -23,14 +25,23 @@ class AnalysisJob < ApplicationJob
         # TODO: Add feature tests for adding and removing TODO's
         # It should test wether we're correctly adding or removing
         # them on both existing and non-existing scenarios
-        if existing && todo.removal?
-          repository.close_issue issue.number
-        elsif (not existing) && todo.addition?
-          issue = NewIssue.new(repository, filename, todo)
-          repository.create_issue issue.title, issue.body
-        end
+        create(existing, repository, filename, todo) ||
+          delete(existing, repository, todo)
       end
     end
+  end
+
+  def create(existing, repository, filename, todo)
+    return if todo.addition? && (not existing)
+
+    issue = NewIssue.new(repository, filename, todo)
+    repository.create_issue issue.title, issue.body
+  end
+
+  def delete(existing, repository, todo)
+    return unless existing && todo.removal?
+
+    repository.close_issue issue.number
   end
 
   def find_issue(repository, filename, todo)
@@ -46,5 +57,5 @@ class AnalysisJob < ApplicationJob
     end
   end
 
-  METADATA = /(?<=\[\/{2}\]:\s\#\s\(gitdoer-metadata:\s)[^\)]+/i
+  METADATA = %r((?<=\[\/{2}\]:\s\#\s\(gitdoer-metadata:\s)[^\)]+)i
 end

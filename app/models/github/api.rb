@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require "octokit"
 
 module Github
   class Api
-    ORGANIZATION_TYPE = "Organization".freeze
+    ORGANIZATION_TYPE = "Organization"
 
     attr_reader :file_cache, :token
 

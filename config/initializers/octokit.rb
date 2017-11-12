@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 if ENV["DEBUG_OCTOKIT"]
   require "octokit"
   require "faraday"

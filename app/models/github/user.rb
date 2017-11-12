@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "active_support/core_ext/module/delegation"
 
 module Github
@@ -6,7 +8,7 @@ module Github
       @user = user
     end
 
-    def has_access_to_private_repos?
+    def access_to_private_repos?
       !!(github_token_scopes&.split(",")&.include?("repo"))
     end
 

@@ -1,0 +1,37 @@
+AllCops:
+  TargetRailsVersion: 5.1
+  Exclude:
+    - "spec/**/**"
+    - "db/schema.rb"
+    - "db/seed.rb"
+    - "db/migrate/**"
+    - "Guardfile"
+    - "config.ru"
+    - "bin/**"
+
+Metrics/LineLength:
+  IgnoredPatterns: ["#"]
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
+
+Style/Not:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Lint/RescueWithoutErrorClass:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 16
