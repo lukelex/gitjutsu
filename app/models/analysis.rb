@@ -10,15 +10,10 @@ class Analysis < ApplicationRecord
 
   after_create_commit :enqueue_job
 
-  PENDING = "Analyzing..."
-  ERROR   = "Errored"
-
   def start(live: false)
-    analyzing(live) do
-      changed_files.map do |file|
-        [file.filename, extract_todos(file)]
-      end
-    end
+    pull_request
+      .analyzing(live, &method(:extract_todos))
+      .tap { update(finished_at: Time.zone.now) }
   end
 
   Github::Hooks::EVENTS.each do |name|
@@ -27,21 +22,14 @@ class Analysis < ApplicationRecord
 
   private
 
-  def enqueue_job
-    AnalysisJob.perform_later id
+  def extract_todos
+    changed_files.map do |f|
+      [f.filename, Parsers::All.extract_from(f)]
+    end
   end
 
-  def analyzing(live)
-    pull_request.set_status(:pending, PENDING) if live
-
-    yield.tap do |result|
-      if update(finished_at: Time.zone.now) && live
-        summary = Summary.new(result)
-        pull_request.set_status(:success, summary.to_s)
-      end
-    end
-  ensure
-    pull_request.set_status(:success, ERROR) if live
+  def enqueue_job
+    AnalysisJob.perform_later id
   end
 
   def changed_files
@@ -50,10 +38,6 @@ class Analysis < ApplicationRecord
     repository.compare_files \
       payload.fetch("before"),
       payload.fetch("after")
-  end
-
-  def extract_todos(file)
-    Parsers::All.extract_from file
   end
 
   def pull_request
