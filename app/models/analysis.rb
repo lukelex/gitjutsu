@@ -33,15 +33,15 @@ class Analysis < ApplicationRecord
 
   def analyzing(live)
     pull_request.set_status(:pending, PENDING) if live
+
     yield.tap do |result|
       if update(finished_at: Time.zone.now) && live
         summary = Summary.new(result)
         pull_request.set_status(:success, summary.to_s)
       end
     end
-  rescue
-    pull_request.set_status(:error, ERROR) if live
-    raise
+  ensure
+    pull_request.set_status(:success, ERROR) if live
   end
 
   def changed_files
