@@ -7,12 +7,12 @@ default: &default
 
 development:
   <<: *default
-  database: gitdoer_development
+  database: codetags_development
   host: localhost
 
 test:
   <<: *default
-  database: gitdoer_test
+  database: codetags_test
   host: localhost
 
 # On Heroku and other platform providers, you may have a full connection URL

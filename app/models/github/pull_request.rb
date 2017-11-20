@@ -16,7 +16,7 @@ module Github
     def set_status(state, description, target_url: nil)
       @api.create_status \
         @repo_name, @sha, state,
-        context: "GitDoer",
+        context: "Codetags",
         description: description,
         target_url: target_url
     end
