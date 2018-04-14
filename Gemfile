@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source "https://rubygems.org"
-ruby "2.4.2"
+ruby "2.4.4"
 
 gem "pg", "~> 0.18"
 gem "puma", "~> 3.0"
