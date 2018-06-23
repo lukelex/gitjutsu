@@ -8,7 +8,7 @@ module Parsers
 
     COMMENT_SIGN = nil
 
-    def able?(_)
+    def able?(*)
       true
     end
 
