@@ -9,15 +9,7 @@ module Github
     end
 
     def access_to_private_repos?
-      !!(github_token_scopes&.split(",")&.include?("repo"))
-    end
-
-    private
-
-    delegate :github_token_scopes, to: :@user
-
-    def github
-      Github::Api.new github_token
+      !!(@user.github_token_scopes&.split(",")&.include?("repo"))
     end
   end
 end

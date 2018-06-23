@@ -17,7 +17,7 @@ RSpec.describe NewIssue do
 
         issue.body.tap do |txt|
           expect(txt).to include("Description:")
-          expect(txt).to match(/\[\/{2}\]: # \(gitdoer-metadata: 123abc\)/)
+          expect(txt).to match(/\[\/{2}\]: # \(codetags-metadata: 123abc\)/)
         end
       end
 
@@ -42,7 +42,7 @@ RSpec.describe NewIssue do
         &gt; them on both existing and non-existing scenarios
         &gt; aside from everything
 
-        [//]: # (gitdoer-metadata: 123abc)
+        [//]: # (codetags-metadata: 123abc)
         ISSUE
       end
     end

@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Gitdoer
+    title CodeTags
 
     = csrf_meta_tags
 
@@ -13,7 +13,7 @@ html
       .container
         .navbar-header
           button.navbar-toggle data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" type="button"
-          = link_to "GitDoer", root_path, class: "navbar-brand"
+          = link_to "CodeTags", root_path, class: "navbar-brand"
 
         - if signed_in?
           .dropdown
@@ -37,7 +37,7 @@ html
     .container
       .center-block
         p
-          | GitDoer © - #{Time.zone.now.year}
+          | CodeTags © - #{Time.zone.now.year}
           br
           | Powered By
           a href="http://codelogic.me" target="_blank" &nbsp;Codelogic
