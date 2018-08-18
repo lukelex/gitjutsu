@@ -24,6 +24,7 @@ gem "omniauth-github"
 gem "resque", "~> 1.27"
 gem "slim"
 
+# utilities
 gem "closed_struct"
 
 group :development, :test do
