@@ -7,12 +7,12 @@ default: &default
 
 development:
   <<: *default
-  database: codetags_development
+  database: gitjutsu_development
   host: localhost
 
 test:
   <<: *default
-  database: codetags_test
+  database: gitjutsu_test
   host: localhost
 
 # On Heroku and other platform providers, you may have a full connection URL

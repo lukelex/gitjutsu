@@ -57,5 +57,5 @@ class AnalysisJob < ApplicationJob
     end
   end
 
-  METADATA = %r((?<=\[\/{2}\]:\s\#\s\(codetags-metadata:\s)[^\)]+)i
+  METADATA = %r((?<=\[\/{2}\]:\s\#\s\((codetags|gitjutsu)-metadata:\s)[^\)]+)i
 end

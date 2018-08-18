@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     default_url_options host: "localhost:3000"
   else
     default_url_options \
-      host: "codetags.herokuapp.com",
+      host: "gitjutsu.com",
       protocol: "https"
   end
 
