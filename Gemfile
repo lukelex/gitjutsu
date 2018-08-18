@@ -9,6 +9,7 @@ gem "pg", "~> 0.18"
 gem "puma", "~> 3.0"
 gem "rails", "~> 5.2.1"
 gem "slim"
+gem "bootsnap", require: false
 
 # Service integration
 gem "octokit"
@@ -38,5 +39,4 @@ end
 group :development do
   gem "guard", require: false
   gem "guard-rspec", require: false
-  gem "bootsnap", require: false
 end
