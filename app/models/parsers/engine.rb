@@ -45,7 +45,7 @@ module Parsers
       @title_pattern.match(line_and_number.first) do |r|
         Todo.new \
           line: line_and_number.first,
-          title: r["title"],
+          title: r["title"].strip,
           line_number: line_and_number.last + 1,
           body: body
       end
